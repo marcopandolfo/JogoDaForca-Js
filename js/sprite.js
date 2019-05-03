@@ -1,7 +1,4 @@
 const createSprite = (seletor) => {
-    let currentFrame = 1;
-    const $el = $(seletor);
-    $el.addClass('frame' + currentFrame);
 
     const moveFrame = (from, to) => {
         $el.removeClass('frame' + from);
@@ -19,7 +16,22 @@ const createSprite = (seletor) => {
         }
     };
 
+    const reset = () => {
+        moveFrame(currentFrame, 1);
+        currentFrame = 1;
+    };
+
+    const isFinished = () => {
+        return !hasNext();
+    };
+
+    let currentFrame = 1;
+    const $el = $(seletor);
+    $el.addClass('frame' + currentFrame);
+
     return {
         nextFrame: nextFrame,
+        reset: reset,
+        isFinished: isFinished,
     };
 };
