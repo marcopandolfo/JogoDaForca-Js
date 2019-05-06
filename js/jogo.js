@@ -1,13 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 const criaJogo = () => {
     let palavraSecreta = '';
-    const lacunas = [];
+    let lacunas;
     let etapa = 1;
 
     const criaLacunas = () => {
-        for (let i = 0; i < palavraSecreta.length; i += 1) {
-            lacunas.push('');
-        }
+        lacunas = Array(palavraSecreta.length).fill('');
     };
 
     const proximaEtapa = () => {
