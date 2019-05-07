@@ -9,7 +9,7 @@ const criaJogo = (sprite) => {
 
     const perdeu = () => sprite.isFinished();
 
-    const ganhouOuPerdeu = () => ganhou || perdeu;
+    const ganhouOuPerdeu = () => ganhou() || perdeu();
 
     const reinicia = () => {
         etapa = 1;

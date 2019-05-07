@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable default-case */
 /* eslint-disable no-alert */
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
@@ -26,23 +28,39 @@ const criaController = (jogo) => {
         exibeLacunas();
     };
 
+    const reinicia = () => {
+        jogo.reinicia();
+        $lacunas.empty();
+        mudaPlaceHolder('palavra secreta');
+    };
+
     const leChute = () => {
-        $entrada.val('');
         jogo.processaChute($entrada.val().trim().substr(0, 1));
+        $entrada.val('');
         exibeLacunas();
+
+        if (jogo.ganhouOuPerdeu()) {
+            setTimeout(() => {
+                if (jogo.ganhou()) {
+                    alert('Parabéns, você ganhou!');
+                } else if (jogo.perdeu()) {
+                    alert('Que pena, tenta novamente');
+                }
+
+                reinicia();
+            }, 200);
+        }
     };
 
     const inicia = () => {
         $entrada.keypress((event) => {
-            if (event.which === 13) {
+            if (event.which == 13) {
                 switch (jogo.getEtapa()) {
                 case 1:
                     guardaPalavraSecreta();
                     break;
                 case 2:
                     leChute();
-                    break;
-                default:
                     break;
                 }
             }
