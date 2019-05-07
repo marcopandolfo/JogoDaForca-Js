@@ -22,10 +22,14 @@ const criaController = (jogo) => {
     };
 
     const guardaPalavraSecreta = () => {
-        jogo.setPalavraSecreta($entrada.val().trim());
-        $entrada.val('');
-        mudaPlaceHolder('chute');
-        exibeLacunas();
+        try {
+            jogo.setPalavraSecreta($entrada.val().trim());
+            $entrada.val('');
+            mudaPlaceHolder('chute');
+            exibeLacunas();
+        } catch (err) {
+            alert(err.message);
+        }
     };
 
     const reinicia = () => {
@@ -35,20 +39,24 @@ const criaController = (jogo) => {
     };
 
     const leChute = () => {
-        jogo.processaChute($entrada.val().trim().substr(0, 1));
-        $entrada.val('');
-        exibeLacunas();
+        try {
+            jogo.processaChute($entrada.val().trim().substr(0, 1));
+            $entrada.val('');
+            exibeLacunas();
 
-        if (jogo.ganhouOuPerdeu()) {
-            setTimeout(() => {
-                if (jogo.ganhou()) {
-                    alert('Parabéns, você ganhou!');
-                } else if (jogo.perdeu()) {
-                    alert('Que pena, tenta novamente');
-                }
+            if (jogo.ganhouOuPerdeu()) {
+                setTimeout(() => {
+                    if (jogo.ganhou()) {
+                        alert('Parabéns, você ganhou!');
+                    } else if (jogo.perdeu()) {
+                        alert('Que pena, tenta novamente');
+                    }
 
-                reinicia();
-            }, 200);
+                    reinicia();
+                }, 200);
+            }
+        } catch (err) {
+            alert(err.message);
         }
     };
 
